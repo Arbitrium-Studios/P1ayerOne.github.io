@@ -1,23 +1,106 @@
-# mod_rewrite starts here
+# URL Rewrites
 
-RewriteEngine on
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%
-{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteEngine Pn
+RewriteCond %{HTTP_HOST} ^player1gamez.theplayerzero.com [NC] 
+RewriteCond %{HTTPS} off 
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 Options +FollowSymLinks
 
-ErrorDocument 404 404.html
+# If there are caps, set HASCAPS to true and skip next rule
+RewriteRule [A-Z] - [E=HASCAPS:TRUE,S=1]
 
-# does not apply to existing directories, meaning that if the folder exists on the server then don't change anything and don't run the Rule!
-  
-RewriteCond %{REQUEST_FILENAME} !-d
+# Skip this entire section if no uppercase letters in requested URL
+RewriteRule ![A-Z] - [S=28]
 
-# Check for file in directory with .html extension
+# Replace single occurance of CAP with cap, then process next Rule.
+RewriteRule ^([^A]*)A(.*)$ $1a$2
+RewriteRule ^([^B]*)B(.*)$ $1b$2
+RewriteRule ^([^C]*)C(.*)$ $1c$2
+RewriteRule ^([^D]*)D(.*)$ $1d$2
+RewriteRule ^([^E]*)E(.*)$ $1e$2
+RewriteRule ^([^F]*)F(.*)$ $1f$2
+RewriteRule ^([^G]*)G(.*)$ $1g$2
+RewriteRule ^([^H]*)H(.*)$ $1h$2
+RewriteRule ^([^I]*)I(.*)$ $1i$2
+RewriteRule ^([^J]*)J(.*)$ $1j$2
+RewriteRule ^([^K]*)K(.*)$ $1k$2
+RewriteRule ^([^L]*)L(.*)$ $1l$2
+RewriteRule ^([^M]*)M(.*)$ $1m$2
+RewriteRule ^([^N]*)N(.*)$ $1n$2
+RewriteRule ^([^O]*)O(.*)$ $1o$2
+RewriteRule ^([^P]*)P(.*)$ $1p$2
+RewriteRule ^([^Q]*)Q(.*)$ $1q$2
+RewriteRule ^([^R]*)R(.*)$ $1r$2
+RewriteRule ^([^S]*)S(.*)$ $1s$2
+RewriteRule ^([^T]*)T(.*)$ $1t$2
+RewriteRule ^([^U]*)U(.*)$ $1u$2
+RewriteRule ^([^V]*)V(.*)$ $1v$2
+RewriteRule ^([^W]*)W(.*)$ $1w$2
+RewriteRule ^([^X]*)X(.*)$ $1x$2
+RewriteRule ^([^Y]*)Y(.*)$ $1y$2
+RewriteRule ^([^Z]*)Z(.*)$ $1z$2
 
-RewriteCond %{REQUEST_FILENAME}/.html -f
+# If there are any uppercase letters, restart at very first RewriteRule in file.
+RewriteRule [A-Z] - [N]
 
-# Here we actually show the page that has the .html extension
+RewriteCond %{ENV:HASCAPS} TRUE
+RewriteRule ^/?(.*) /$1 [R=301,L]
 
-RewriteRule ^(.*)$ $1.html [NC,L]
+# If these URLs are found, the redirect will be ignored.
 
+RewriteCond %{REQUEST_URI} !^/errors/?$, !^/assets/?$, !^https://discord.com/invite/5xmBA8stzY?$, !^https://www.youtube.com/@Arbitrium_Studios?$, !^https://linktr.ee/THE_PLAYER_ZER0/?$, !^https://twitter.com/ArbitriumStds/?$
+
+# This removes the file extension for webpages for a much cleaner look.
+
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [NC,L,R]
+
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^ %{REQUEST_URI}.html [NC,L]
+
+RewriteCond %{THE_REQUEST} /([^.]+)\.asp [NC]
+RewriteRule ^ /%1 [NC,L,R]
+
+RewriteCond %{REQUEST_FILENAME}.asp -f
+RewriteRule ^ %{REQUEST_URI}.asp [NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^.]+)$ $1.php [NC,L]
+
+RewriteCond %{THE_REQUEST} /([^.]+)\.php [NC]
+RewriteRule ^ /%1 [NC,L,R]
+
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^ %{REQUEST_URI}.php [NC,L]
+
+# If SVG isn't supported then it switches to PNG
+
+RewriteCond %{HTTP_USER_AGENT} MSIE\s[5-8]\.
+RewriteCond %{REQUEST_FILENAME} ^.+?\.svg$
+RewriteRule ^(.+?)\.(?:svg)$ $1\.png [L]
+
+# These are the custom error pages that I have made.
+
+ErrorDocument 301 https://www.arbitriumstudios.com/errors/not_found
+ErrorDocument 302 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 400 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 401 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 402 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 403 https://www.arbitriumstudios.com/errors/teapot
+ErrorDocument 404 https://www.arbitriumstudios.com/errors/not_found
+ErrorDocument 405 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 406 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 408 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 410 https://www.arbitriumstudios.com/errors/not_found
+ErrorDocument 418 https://www.arbitriumstudios.com/errors/teapot
+ErrorDocument 429 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 451 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 500 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 501 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 502 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 503 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 504 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 505 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 507 https://www.arbitriumstudios.com/errors/whoopsies
+ErrorDocument 508 https://www.arbitriumstudios.com/errors/not_found
