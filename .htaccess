@@ -49,7 +49,7 @@ RewriteRule ^/?(.*) /$1 [R=301,L]
 
 # If these URLs are found, the redirect will be ignored.
 
-RewriteCond %{REQUEST_URI} !^/errors/?$, !^/assets/?$, !^https://discord.com/invite/5xmBA8stzY?$, !^https://www.youtube.com/@Arbitrium_Studios?$, !^https://linktr.ee/THE_PLAYER_ZER0/?$, !^https://twitter.com/ArbitriumStds/?$
+RewriteCond %{REQUEST_URI} !^/errors/?$, !^/assets/?$, !^https://discord.com/invite/besx99KFcK?$, !^https://www.youtube.com/@Arbitrium_Studios?$, !^https://linktr.ee/THE_PLAYER_ZER0/?$, !^https://twitter.com/ArbitriumStds/?$
 
 # This removes the file extension for webpages for a much cleaner look.
 
@@ -82,10 +82,10 @@ RewriteRule ^(.+?)\.(?:svg)$ $1\.png [L]
 
 # These are the custom error pages that I have made.
 
-ErrorDocument 301 https://www.arbitriumstudios.com/errors/not_found
-ErrorDocument 302 https://www.arbitriumstudios.com/errors/whoopsies
+# ErrorDocument 301 https://www.arbitriumstudios.com/errors/not_found
+# ErrorDocument 302 https://www.arbitriumstudios.com/errors/whoopsies
 ErrorDocument 400 https://www.arbitriumstudios.com/errors/whoopsies
-ErrorDocument 401 https://www.arbitriumstudios.com/errors/whoopsies
+# ErrorDocument 401 https://www.arbitriumstudios.com/errors/whoopsies
 ErrorDocument 402 https://www.arbitriumstudios.com/errors/whoopsies
 ErrorDocument 403 https://www.arbitriumstudios.com/errors/teapot
 ErrorDocument 404 https://www.arbitriumstudios.com/errors/not_found
@@ -93,7 +93,7 @@ ErrorDocument 405 https://www.arbitriumstudios.com/errors/whoopsies
 ErrorDocument 406 https://www.arbitriumstudios.com/errors/whoopsies
 ErrorDocument 408 https://www.arbitriumstudios.com/errors/whoopsies
 ErrorDocument 410 https://www.arbitriumstudios.com/errors/not_found
-ErrorDocument 418 https://www.arbitriumstudios.com/errors/teapot
+# ErrorDocument 418 https://www.arbitriumstudios.com/errors/teapot
 ErrorDocument 429 https://www.arbitriumstudios.com/errors/whoopsies
 ErrorDocument 451 https://www.arbitriumstudios.com/errors/whoopsies
 ErrorDocument 500 https://www.arbitriumstudios.com/errors/whoopsies
